@@ -313,7 +313,6 @@ end
 def check_homebrew_prefix
   unless HOMEBREW_PREFIX.to_s == '/usr/local'
     puts <<-EOS.undent
-      You can install Homebrew anywhere you want, but some brews may only work
       You can install Homebrew anywhere you want, but some brews may only build
       correctly if you install to /usr/local.
 
@@ -753,7 +752,7 @@ end
 
 def check_git_status
   status_cmd = "git --git-dir=#{HOMEBREW_REPOSITORY}/.git --work-tree=#{HOMEBREW_PREFIX} status -s #{HOMEBREW_PREFIX}/Library/Homebrew"
-  if system "/usr/bin/which -s git" and not `#{status_cmd}`.empty?
+  if system "/usr/bin/which -s git" and File.directory? HOMEBREW_REPOSITORY+'.git' and not `#{status_cmd}`.empty?
     ohai "You have uncommitted modifications to Homebrew core"
     puts "Unless you know what you are doing, you should: git reset --hard"
     puts
