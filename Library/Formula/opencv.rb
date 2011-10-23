@@ -38,6 +38,12 @@ class Opencv < Formula
   end
 
   def install
+    ENV.x11
+    
+    ENV.append "CFLAGS", "-I/usr/X11/include" # env.x11 does not add this line
+    # ENV.append "CPPFLAGS", "-I/usr/X11/include"
+    ENV.append "CXXFLAGS", "-I/usr/X11/include" # env.x11 does not add this line
+    
     args = std_cmake_parameters.split
     args << " -DOPENCV_EXTRA_C_FLAGS='-arch i386 -m32'" if ARGV.include? '--build32'
 
