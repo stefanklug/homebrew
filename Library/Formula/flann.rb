@@ -33,6 +33,9 @@ class Flann < Formula
     else
       args << '-DBUILD_PYTHON_BINDINGS:BOOL=OFF'
     end
+    
+    args << '-DBUILD_CUDA_LIB=OFF'
+    args << '-DCMAKE_BUILD_TYPE=Release'
 
     inreplace 'CMakeLists.txt', 'add_subdirectory( examples )', '' unless ARGV.include? '--with-examples'
 
